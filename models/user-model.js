@@ -14,6 +14,7 @@ const userSchema = new Schema({
 
     lastName: {
         type: String,
+        required: true
     },
 
     area: {
@@ -30,10 +31,12 @@ const userSchema = new Schema({
 
     password: {
         type: String,
-        minlength: 4,
-        maxlength: 10,
         required: true
     },
+
+    userName: {
+        type: String,
+    }
 });
 
 export default model( 'Users', userSchema, 'users' );
