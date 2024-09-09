@@ -51,7 +51,7 @@ export async function findUser (req, res) {
 };
 
 
-// PUT ---- UPDATE ONE USER
+// PUT ---- UPDATE ONE USER (personal data)
 
 
 
