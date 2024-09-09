@@ -42,7 +42,13 @@ const userSchema = new Schema({
         type: String,
         enum: [ 'Enable', 'Disable' ],
         default: "Enable"
-    }
+    }    
+
+},
+
+{
+    // timestamps: true,
+    versionKey: false,
 });
 
 export default model( 'Users', userSchema, 'users' );

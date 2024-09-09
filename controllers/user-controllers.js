@@ -52,9 +52,34 @@ export async function findUser (req, res) {
 
 
 // PUT ---- UPDATE ONE USER (personal data)
+export async function updateUser (req, res) {
+    let msg = 'User data updated successfully';
 
+    try {
+        const { documentId, names, lastName, area, role } = req.body;
 
+        if (!documentId ) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        const user = await Users.findOne({ documentId: documentId });
+        console.log(user);
 
+        if (!user) {
+            return res.estatus(404).json({ message: 'User not found' });
+        } else {
+            user.names = names;
+            user.lastName = lastName;
+            user.area = area;
+            user.role = role;
+
+            console.log(user);
+            await user.save();
+            return res.status(200).json({ message: msg });
+        }
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
+};
 
 // PUT ---- CHANGE STATUS ONE USER
 export async function changeStatus (req, res) {
@@ -72,7 +97,6 @@ export async function changeStatus (req, res) {
             return res.status(404).json({ msg: 'User not found' });
         } else {
             user.userStatus = userStatus;
-            console.log(user.userStatus);
     
             await user.save();
             return res.status(200).json({ message: msg });
