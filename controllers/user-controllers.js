@@ -31,7 +31,24 @@ export async function createUser (req, res) {
 
 
 // GET ---- FIND ONE USER
+export async function findUser (req, res) {
+    try {
+        const { documentId } = req.body;
+        if ( !documentId ) {
+            res.status(404),json({ msg: 'User not foud' });
+        }
 
+        const user = await Users.findOne({ documentId: documentId });
+
+        if (!user) {
+            return res.status(400).json({ msg: 'User not found' });
+        }
+        return res.json(user);
+
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
 
 
 // PUT ---- UPDATE ONE USER
@@ -40,3 +57,28 @@ export async function createUser (req, res) {
 
 
 // PUT ---- CHANGE STATUS ONE USER
+export async function changeStatus (req, res) {
+    let msg = 'User successfully disabled, remember that you will not be able to perform actions within the system';
+
+    try {
+        const { documentId, userStatus } = req.body;
+
+        if ( !documentId || !userStatus) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        const user = await Users.findOne({ documentId: documentId });
+        
+        if ( !user ) {
+            return res.status(404).json({ msg: 'User not found' });
+        } else {
+            user.userStatus = userStatus;
+            console.log(user.userStatus);
+    
+            await user.save();
+            return res.status(200).json({ message: msg });
+        }
+
+    } catch (error) {
+       return res.status(500).json({ message: error.message });
+    }
+};

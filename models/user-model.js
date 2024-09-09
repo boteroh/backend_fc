@@ -19,7 +19,7 @@ const userSchema = new Schema({
 
     area: {
         type: String,
-        enum: [ 'Gerencia', 'Diseño', 'Desarrollo', 'Planeación', 'Compras', 'Comex' ],
+        enum: [ 'Management', 'Design', 'Development', 'Planning', 'Purchasing', 'Import/Export' ],
         required: true
     },
 
@@ -36,6 +36,12 @@ const userSchema = new Schema({
 
     userName: {
         type: String,
+    },
+
+    userStatus: {
+        type: String,
+        enum: [ 'Enable', 'Disable' ],
+        default: "Enable"
     }
 });
 
