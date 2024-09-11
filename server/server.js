@@ -1,11 +1,13 @@
 import express, { json } from 'express';
 import dbconnect from '../db/config.js';
 import userRoute from '../routes/user-route.js';
+import collectionRoute from '../routes/collection-route.js';
 
 class Server {
     constructor() {
         this.app = express();
         this.pathUsers = "/";
+        this.pathCollections = "/collections"
         this.listen();
         this.dbconnection();
         this.route();
@@ -14,6 +16,7 @@ class Server {
     route() {
         this.app.use(json());
         this.app.use(this.pathUsers, userRoute);
+        
     };
 
     listen() {
