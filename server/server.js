@@ -16,7 +16,7 @@ class Server {
     route() {
         this.app.use(json());
         this.app.use(this.pathUsers, userRoute);
-        
+        this.app.use(this.pathCollections, collectionRoute);
     };
 
     listen() {

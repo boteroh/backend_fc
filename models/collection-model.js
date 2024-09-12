@@ -3,7 +3,8 @@ import { model, Schema } from "mongoose";
 const collectionSchema = new Schema({
    nameCollection: {
     type: String,
-    required: true
+    required: true,
+    unique: true
    },
 
    delivery: {
@@ -17,6 +18,10 @@ const collectionSchema = new Schema({
       required: true
    },
 
+},
+
+{
+   versionKey: false
 });
 
 export default model( 'Collections', collectionSchema, 'collections' );

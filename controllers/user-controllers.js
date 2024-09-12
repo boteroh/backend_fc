@@ -7,13 +7,14 @@ export async function createUser (req, res) {
     try {
         const body = req.body;
 
-        // Comprobación de que los campos requeridos no queden vacíos o nulos
         const { documentId, names, lastName, area, role, password } = req.body;
+
+        // Verification that the required fields are not left empty or null
         if ( !documentId || !names || !lastName || !area || !role || !password ) {
             return res.status(400).json({ msg: "Please enter the complete information" });
         }
 
-        // Validación de caracteres de la contraseña
+        // Password character validation
         if ( password.length <4 || password.length > 10 ) {
             return res.status(400).json({ msg: 'The password must contain a minimum of 4 characters and a maximum of 10' });
         }

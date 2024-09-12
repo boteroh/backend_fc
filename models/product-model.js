@@ -15,6 +15,10 @@ const productSchema = new Schema({
         type: String,
         enum: [ 'Swimwear top', 'Swimwear bottom', 'Cover up' ]
     },
+},
+
+{
+    versionKey: false
 });
 
 export default model( 'Products', productSchema, 'products' );

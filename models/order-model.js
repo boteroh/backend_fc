@@ -18,6 +18,10 @@ const orderSchema = new Schema({
     totalUnits: {
         type: Number
     }
+},
+
+{
+    versionKey: false
 });
 
 export default model( 'Orders', orderSchema, 'orders' );
