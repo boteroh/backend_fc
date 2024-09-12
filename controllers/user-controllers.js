@@ -63,7 +63,6 @@ export async function updateUser (req, res) {
             return res.status(404).json({ message: 'User not found' });
         }
         const user = await Users.findOne({ documentId: documentId });
-        console.log(user);
 
         if (!user) {
             return res.estatus(404).json({ message: 'User not found' });
@@ -73,7 +72,6 @@ export async function updateUser (req, res) {
             user.area = area;
             user.role = role;
 
-            console.log(user);
             await user.save();
             return res.status(200).json({ message: msg });
         }

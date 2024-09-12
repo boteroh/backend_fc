@@ -28,7 +28,6 @@ export async function createCollection(req, res) {
     res.json({ msg: msg });
 };
 
-
 // GET ---> LIST ALL COLLECTIONS
 export async function listCollections (req, res) {
     try {
@@ -62,6 +61,29 @@ export async function findCollection (req, res) {
 
 // PUT ---> EDIT COLLECTION
 export async function editCollection (req, res) {
+    let msg = 'Collection updated succesfully';
+    try {
+        const { nameCollection, delivery, group } = req.body;
 
+        if ( !nameCollection || !delivery || !group ) {
+            return res.status(404).json({ message: 'Collection not found' });
+        };
+
+        const collection = await Collections.findOne({ nameCollection: nameCollection });
+
+        if ( !collection ) {
+            return res.status(404).json({ message: 'Colection not found' });
+        } else {
+            collection.nameCollection = nameCollection;
+            collection.delivery = delivery;
+            collection.group = group;
+
+            await collection.save();
+            return res.status(200).json({ message: msg });
+        }
+
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
 };
 
