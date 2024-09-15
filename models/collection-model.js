@@ -1,4 +1,4 @@
-import { model, Schema } from "mongoose";
+import mongoose, { model, Schema } from "mongoose";
 
 const collectionSchema = new Schema({
    nameCollection: {
@@ -13,10 +13,9 @@ const collectionSchema = new Schema({
       required: true
    },
 
-   group: {
-      type: String,
-      required: true
-   },
+   products: [{
+      type: mongoose.Schema.Types.ObjectId, ref: 'Products'
+   }]
 
 },
 
