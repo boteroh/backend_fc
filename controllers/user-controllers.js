@@ -29,7 +29,6 @@ export async function createUser (req, res) {
         const users = new Users(body);
 
         users.password = await bcrypt.hash(`${ users.documentId }`, 5);
-        console.log('resultado names: ', names);
         users.userName = `${names.toLowerCase()}.${lastName.toLowerCase()}`; // Cerate user name
         await users.save();
     } catch (error) {
