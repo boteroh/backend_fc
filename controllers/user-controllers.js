@@ -8,6 +8,7 @@ export async function createUser (req, res) {
         const body = req.body;
 
         const { documentId, names, lastName, area, role, password } = req.body;
+        
 
         // Verification that the required fields are not left empty or null
         if ( !documentId || !names || !lastName || !area || !role || !password ) {
@@ -19,9 +20,16 @@ export async function createUser (req, res) {
             return res.status(400).json({ msg: 'The password must contain a minimum of 4 characters and a maximum of 10' });
         }
 
+        const existUser = await Users.findOne({ documentId });
+
+        if ( existUser ) {
+            return res.status(400).json({ msg: 'User already exists, please enter a valid document' });
+        }
+
         const users = new Users(body);
 
         users.password = await bcrypt.hash(`${ users.documentId }`, 5);
+        console.log('resultado names: ', names);
         users.userName = `${names.toLowerCase()}.${lastName.toLowerCase()}`; // Cerate user name
         await users.save();
     } catch (error) {
