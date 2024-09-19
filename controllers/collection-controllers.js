@@ -18,7 +18,6 @@ export async function createCollection(req, res) {
             collections.delivery = delivery;
             // collections.group = group;
             
-            // Concatenar primeras 3 letras del grupo y pasarle un número randon entre 650 y 820 y una letra random entre S, T, F, B, R
             await collections.save();
         }
 
@@ -40,50 +39,50 @@ export async function listCollections (req, res) {
 
 
 // GET ---> VIEW A SINGLE COLLECTION
-export async function findCollection(req, res) {
-    try {
-        // Usar req.params o req.query en lugar de req.body para solicitudes GET
-        const { nameCollection } = req.params; // o req.query si estás usando query parameters
-
-        if (!nameCollection) {
-            return res.status(400).json({ msg: 'nameCollection is required' });
-        }
-
-        const collection = await Collections.findOne({ nameCollection: nameCollection }).populate('orders');
-
-        if (!collection) {
-            return res.status(404).json({ msg: 'Collection not found' });
-        }
-
-        // Si llegamos aquí, hemos encontrado la colección
-        return res.json(collection);
-
-    } catch (error) {
-        console.error('Error in findCollection:', error);
-        res.status(500).json({ message: 'Internal server error', error: error.message });
-    }
-}
-
-// GET ---> VIEW A SINGLE COLLECTION
-// export async function findCollection (req, res) {
+// export async function findCollection(req, res) {
 //     try {
-//         const { nameCollection } = req.body;
+//         // Usar req.params o req.query en lugar de req.body para solicitudes GET
+//         const { nameCollection } = req.params; // o req.query si estás usando query parameters
 
-//         if ( !nameCollection ) {
-//             return res.status(404).json({ msg: 'Collection not found' });
+//         if (!nameCollection) {
+//             return res.status(400).json({ msg: 'nameCollection is required' });
 //         }
 
 //         const collection = await Collections.findOne({ nameCollection: nameCollection }).populate('orders');
 
-//         if ( !collection ) {
+//         if (!collection) {
 //             return res.status(404).json({ msg: 'Collection not found' });
 //         }
+
+//         // Si llegamos aquí, hemos encontrado la colección
 //         return res.json(collection);
 
 //     } catch (error) {
-//         res.status(500).json({ message: error.message });
+//         console.error('Error in findCollection:', error);
+//         res.status(500).json({ message: 'Internal server error', error: error.message });
 //     }
-// };
+// }
+
+// GET ---> VIEW A SINGLE COLLECTION
+export async function findCollection (req, res) {
+    try {
+        const { nameCollection } = req.body;
+
+        if ( !nameCollection ) {
+            return res.status(404).json({ msg: 'Collection not found' });
+        }
+
+        const collection = await Collections.findOne({ nameCollection: nameCollection }).populate('orders');
+
+        if ( !collection ) {
+            return res.status(404).json({ msg: 'Collection not found' });
+        }
+        return res.json(collection);
+
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
 
 // PUT ---> EDIT COLLECTION
 export async function editCollection (req, res) {

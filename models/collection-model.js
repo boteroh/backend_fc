@@ -13,7 +13,7 @@ const collectionSchema = new Schema({
       required: true
    },
 
-   products: [{
+   reference: [{
       type: mongoose.Schema.Types.ObjectId, ref: 'Products'
    }]
 

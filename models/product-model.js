@@ -1,4 +1,4 @@
-import { model, Schema } from "mongoose";
+import mongoose, { model, Schema } from "mongoose";
 
 const productSchema = new Schema({ 
     reference: {
@@ -6,7 +6,7 @@ const productSchema = new Schema({
         required: true,
     },
 
-    styeDescription: {
+    styleDescription: {
         type: String,
         required: true
     },
@@ -15,6 +15,14 @@ const productSchema = new Schema({
         type: String,
         enum: [ 'Swimwear top', 'Swimwear bottom', 'Cover up' ]
     },
+
+    collection: { type: mongoose.Schema.Types.ObjectId, ref: 'Collections', required: true 
+
+    },
+
+    order: {
+        type: mongoose.Schema.Types.ObjectId, ref: 'Orders'
+    }
 },
 
 {

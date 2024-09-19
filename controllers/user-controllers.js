@@ -30,6 +30,15 @@ export async function createUser (req, res) {
     res.json({ msg: msg });
 };
 
+// GET ---> LIST ALL USERS
+export async function listUsers (req, res) {
+    try {
+        const users = await Users.find();
+        res.json({ users });
+    } catch (error) {
+        res.status(500).json({ msg: error.message });        
+    }
+};
 
 // GET ---- FIND ONE USER
 export async function findUser (req, res) {

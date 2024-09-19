@@ -19,8 +19,8 @@ const userSchema = new Schema({
 
     area: {
         type: String,
-        enum: [ 'Management', 'Design', 'Development', 'Planning', 'Purchasing', 'Import/Export' ],
-        required: true
+        enum: [ 'Management', 'Design', 'Planning', 'Planning', 'Purchasing', 'Import/Export' ],
+        required: false
     },
 
     role: {

@@ -1,6 +1,11 @@
 import { model, Schema } from "mongoose";
+import mongoose from "mongoose";
 
 const orderSchema = new Schema({
+    reference: {
+        type: mongoose.Schema.Types.ObjectId, ref: 'Product', required: true
+    },
+
     initialCutUsa: {
         type: Number,
         default: 0,
@@ -21,12 +26,6 @@ const orderSchema = new Schema({
     totalUnits: {
         type: Number
     },
-
-    product: {
-        type: Schema.Types.ObjectId,
-        ref: 'Products',
-        required: true
-    }
 },
 
 {
