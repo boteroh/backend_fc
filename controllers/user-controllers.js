@@ -50,12 +50,12 @@ export async function listUsers (req, res) {
 // GET ---- FIND ONE USER
 export async function findUser (req, res) {
     try {
-        const { documentId } = req.body;
+        const { documentId } = req.query;
         if ( !documentId ) {
-            res.status(404),json({ msg: 'User not foud' });
+            return res.status(404).json({ msg: 'User not foud' });
         }
 
-        const user = await Users.findOne({ documentId: documentId });
+        const user = await Users.findOne({ documentId });
 
         if (!user) {
             return res.status(400).json({ msg: 'User not found' });
@@ -66,7 +66,6 @@ export async function findUser (req, res) {
         res.status(500).json({ message: error.message });
     }
 };
-
 
 // PUT ---- UPDATE ONE USER (personal data)
 export async function updateUser (req, res) {
@@ -81,12 +80,13 @@ export async function updateUser (req, res) {
         const user = await Users.findOne({ documentId: documentId });
 
         if (!user) {
-            return res.estatus(404).json({ message: 'User not found' });
+            return res.status(404).json({ message: 'User not found' });
         } else {
             user.names = names;
             user.lastName = lastName;
             user.area = area;
             user.role = role;
+            user.userName = `${names.toLowerCase().replace(/\s+/g, '.')}.${lastName.toLowerCase()}`;
 
             await user.save();
             return res.status(200).json({ message: msg });
